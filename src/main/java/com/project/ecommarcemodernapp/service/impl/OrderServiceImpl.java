@@ -3,7 +3,11 @@ package com.project.ecommarcemodernapp.service.impl;
 import com.project.ecommarcemodernapp.dto.OrderDto;
 import com.project.ecommarcemodernapp.dto.request.OrderRequest;
 import com.project.ecommarcemodernapp.service.OrderService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto createOrder(OrderRequest orderRequest) {
