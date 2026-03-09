@@ -3,7 +3,11 @@ package com.project.ecommarcemodernapp.service.impl;
 import com.project.ecommarcemodernapp.dto.ProductDto;
 import com.project.ecommarcemodernapp.dto.request.ProductRequest;
 import com.project.ecommarcemodernapp.service.ProductService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto createProduct(ProductRequest productRequest) {
