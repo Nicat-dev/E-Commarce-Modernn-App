@@ -1,14 +1,10 @@
 package com.project.ecommarcemodernapp.dto;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import java.time.LocalDateTime;
 
 public record OrderItemDto(Long id,
-                           @NotNull(message = "{orderitem.orderid.notnull}")
-                           Long orderId,
-                           @NotNull(message = "{orderitem.productid.notnull}")
                            Long productId,
-                           @NotNull(message = "{orderitem.quantity.notnull}")
-                           @Positive(message = "{orderitem.quantity.positive}")
-                           Integer quantity) {
+                           Integer quantity,
+                           LocalDateTime createdAt,
+                           LocalDateTime updatedAt) {
 }
