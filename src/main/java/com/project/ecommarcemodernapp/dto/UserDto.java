@@ -7,6 +7,7 @@ public record UserDto(Long id,
                       String phone,
                       String email,
                       String username,
+                      boolean isActive,
                       LocalDateTime createdAt,
                       LocalDateTime updatedAt) {
 }

@@ -32,6 +32,8 @@ public class Users {
     private String username;
     @Column(nullable = false)
     private String password;
+    @Column(nullable = false, columnDefinition = "boolean default true")
+    private boolean isActive;
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
