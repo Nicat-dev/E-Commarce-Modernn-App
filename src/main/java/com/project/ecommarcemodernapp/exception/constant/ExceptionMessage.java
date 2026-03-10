@@ -20,4 +20,5 @@ public class ExceptionMessage {
     public static final String PRODUCT_NOT_FOUND = "Product cannot found";
     public static final String EMAIL_ALREADY_EXISTS = "Email already exists!";
     public static final String USERNAME_ALREADY_EXISTS = "Username already exists!";
+    public static final String ORDER_CODE_ALREADY_EXISTS = "Order code already exists";
 }
