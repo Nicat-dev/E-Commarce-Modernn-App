@@ -4,6 +4,7 @@ import com.project.ecommarcemodernapp.dto.OrderDto;
 import com.project.ecommarcemodernapp.dto.request.OrderRequest;
 import com.project.ecommarcemodernapp.model.Order;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -12,6 +13,8 @@ public interface OrderMapper {
     OrderDto toDto(Order order);
 
     Order toEntity(OrderRequest request);
+
+    void updateEntityFromRequest(OrderRequest request,@MappingTarget Order entity);
 
     List<OrderDto> toDtoList(List<Order> orders);
 }

@@ -5,7 +5,7 @@ import com.project.ecommarcemodernapp.dto.request.OrderItemRequest;
 
 public interface OrderItemService {
     OrderItemDto createOrderItem(OrderItemRequest orderItemRequest);
-    OrderItemDto updateOrderItem(OrderItemRequest orderItemRequest);
+    OrderItemDto updateOrderItem(OrderItemRequest orderItemRequest, Long orderItemId);
     void deleteOrderItem(Long orderItemId);
     OrderItemDto getOrderItemById(Long orderItemId);
 }

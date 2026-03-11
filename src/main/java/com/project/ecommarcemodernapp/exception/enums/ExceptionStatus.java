@@ -15,7 +15,9 @@ public enum ExceptionStatus {
     INVALID_REQUEST(HttpStatus.BAD_REQUEST, ExceptionMessage.INVALID_REQUEST),
     EMAIL_ALREADY_EXISTS(HttpStatus.CONFLICT, ExceptionMessage.EMAIL_ALREADY_EXISTS),
     USERNAME_ALREADY_EXISTS(HttpStatus.CONFLICT, ExceptionMessage.USERNAME_ALREADY_EXISTS),
-    ORDER_CODE_ALREADY_EXISTS(HttpStatus.CONFLICT, ExceptionMessage.ORDER_CODE_ALREADY_EXISTS);
+    ORDER_CODE_ALREADY_EXISTS(HttpStatus.CONFLICT, ExceptionMessage.ORDER_CODE_ALREADY_EXISTS),
+    INVALID_ORDER_ITEM_QUANTITY(HttpStatus.BAD_REQUEST, ExceptionMessage.INVALID_ORDER_ITEM_QUANTITY),
+    INVALID_PRODUCT_PRICE(HttpStatus.BAD_REQUEST, ExceptionMessage.INVALID_PRODUCT_PRICE);
 
     private final HttpStatus httpStatus;
     private final String message;

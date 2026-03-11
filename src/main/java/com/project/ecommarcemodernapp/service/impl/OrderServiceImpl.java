@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
     public OrderDto updateOrder(OrderRequest orderRequest,Long orderId) {
         return orderRepository.findById(orderId).map((order -> {
             validateOrderRequest(orderRequest);
-            order = orderMapper.toEntity(orderRequest);
+            orderMapper.updateEntityFromRequest(orderRequest,order);
             order.setUser(userService.user(orderRequest.userId()));
             order.setId(orderId);
             return orderMapper.toDto(orderRepository.save(order));
