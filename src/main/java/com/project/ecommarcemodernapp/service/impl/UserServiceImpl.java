@@ -13,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.function.Predicate;
-
 import static com.project.ecommarcemodernapp.exception.ApplicationException.throwIf;
 
 @Service
@@ -26,50 +24,66 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
 
-    // Validation predicates
-    private final Predicate<String> isEmailUnique = email -> !userRepository.existsByEmail(email);
-    private final Predicate<String> isUsernameUnique = username -> !userRepository.existsByUsername(username);
-
     @Override
     public UserDto createUser(UserRequest userRequest) {
-        validateUserRequest(userRequest);
+        validateUserRequestForCreate(userRequest);
         Users user = userMapper.toEntity(userRequest);
         user.setPassword(passwordEncoder.encode(userRequest.password()));
+        user.setActive(userRequest.isActive());
         return userMapper.toDto(userRepository.save(user));
     }
 
     @Override
     public UserDto updateUser(UserRequest userRequest, Long id) {
-        return userRepository.findById(id).map((user) -> {
-            validateUserRequest(userRequest);
-            user.setId(id);
-            user = userMapper.toEntity(userRequest);
-            user.setPassword(passwordEncoder.encode(userRequest.password()));
-            return userMapper.toDto(userRepository.save(user));
-        }).orElseThrow(() -> new ApplicationException(ExceptionStatus.USER_NOT_FOUND));
+        Users existingUser = getUser(id);
+
+        validateUserRequestForUpdate(userRequest, id);
+
+        existingUser.setName(userRequest.name());
+        existingUser.setPhone(userRequest.phone());
+        existingUser.setEmail(userRequest.email());
+        existingUser.setUsername(userRequest.username());
+        existingUser.setPassword(passwordEncoder.encode(userRequest.password()));
+        existingUser.setActive(userRequest.isActive());
+
+        return userMapper.toDto(userRepository.save(existingUser));
     }
 
     @Override
     public void deleteUser(Long userId) {
-        userRepository.delete(user(userId));
+        userRepository.delete(getUser(userId));
     }
 
     @Override
     public UserDto getUserById(Long userId) {
-        return userMapper.toDto(user(userId));
+        return userMapper.toDto(getUser(userId));
     }
 
     @Override
     public Users user(Long id) {
+        return getUser(id);
+    }
+
+    private Users getUser(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ApplicationException(ExceptionStatus.USER_NOT_FOUND));
     }
 
+    private void validateUserRequestForCreate(UserRequest userRequest) {
+        throwIf(userRepository.existsByEmail(userRequest.email()), ExceptionStatus.EMAIL_ALREADY_EXISTS);
+        throwIf(userRepository.existsByUsername(userRequest.username()), ExceptionStatus.USERNAME_ALREADY_EXISTS);
+    }
 
-    private void validateUserRequest(UserRequest userRequest) {
-
-        throwIf(!isEmailUnique.test(userRequest.email()), ExceptionStatus.EMAIL_ALREADY_EXISTS);
-        throwIf(!isUsernameUnique.test(userRequest.username()), ExceptionStatus.USERNAME_ALREADY_EXISTS);
-
+    private void validateUserRequestForUpdate(UserRequest userRequest, Long userId) {
+        userRepository.findByEmailAndIdNot(userRequest.email(), userId).ifPresent(
+                _ -> {
+                throw new ApplicationException(ExceptionStatus.EMAIL_ALREADY_EXISTS);
+            }
+        );
+        userRepository.findByUsernameAndIdNot(userRequest.username(), userId).ifPresent(
+                _ -> {
+                throw new ApplicationException(ExceptionStatus.USERNAME_ALREADY_EXISTS);
+            }
+        );
     }
 }

@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.function.Predicate;
 
 import static com.project.ecommarcemodernapp.exception.ApplicationException.throwIf;
 
@@ -26,9 +25,6 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final UserService userService;
-
-    // Validation predicates
-    private final Predicate<String> isOrderCodeUnique = orderCode -> !orderRepository.existsByOrderCode(orderCode);
 
     @Override
     public OrderDto createOrder(OrderRequest orderRequest) {
@@ -67,6 +63,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
     private void validateOrderRequest(OrderRequest orderRequest) {
-        throwIf(!isOrderCodeUnique.test(orderRequest.orderCode()), ExceptionStatus.ORDER_CODE_ALREADY_EXISTS);
+        throwIf(!orderRepository.existsByOrderCode(orderRequest.orderCode()), ExceptionStatus.ORDER_CODE_ALREADY_EXISTS);
     }
 }
