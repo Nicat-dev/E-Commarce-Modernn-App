@@ -45,6 +45,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         return repository.findById(orderItemId).map((orderItem) -> {
             orderItemMapper.updateEntityFromRequest(orderItemRequest, orderItem);
             validateOrderItemRequest(orderItemRequest);
+            orderItem.setId(orderItemId);
             Product product = productService.getProductEntityById(orderItemRequest.productId());
             orderItem.setProduct(product);
             orderItem.setQuantity(orderItemRequest.quantity());
