@@ -34,6 +34,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         validateOrderItemRequest(orderItemRequest);
         Product product = productService.getProductEntityById(orderItemRequest.productId());
 
+        // Check if the requested quantity exceeds available stock
+
         OrderItem orderItem = orderItemMapper.toEntity(orderItemRequest);
         orderItem.setProduct(product);
 
