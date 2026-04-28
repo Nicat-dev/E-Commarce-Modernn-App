@@ -20,6 +20,8 @@ public class OrderItemController {
 
     private final OrderItemService orderItemService;
 
+    // For test purpose only
+
     @PostMapping
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<OrderItemDto> createOrderItem(
