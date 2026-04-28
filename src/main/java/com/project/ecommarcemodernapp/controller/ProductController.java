@@ -22,8 +22,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    //testing-2
-
     @GetMapping
     public ResponseEntity<List<ProductDto>> getAllProducts() {
         log.debug("Fetching all products");
