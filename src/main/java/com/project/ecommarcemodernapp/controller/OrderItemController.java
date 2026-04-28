@@ -45,8 +45,6 @@ public class OrderItemController {
         return ResponseEntity.ok(orderItemService.updateOrderItem(orderItemRequest, id));
     }
 
-    // added some comment here
-
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<Void> deleteOrderItem(@PathVariable Long id) {

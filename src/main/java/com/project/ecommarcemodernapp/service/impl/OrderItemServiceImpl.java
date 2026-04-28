@@ -44,9 +44,6 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Override
     public OrderItemDto updateOrderItem(OrderItemRequest orderItemRequest, Long orderItemId) {
-
-        // Validate the request before updating
-
         return repository.findById(orderItemId).map((orderItem) -> {
             orderItemMapper.updateEntityFromRequest(orderItemRequest, orderItem);
             validateOrderItemRequest(orderItemRequest);
