@@ -18,6 +18,10 @@ import java.util.function.Predicate;
 
 import static com.project.ecommarcemodernapp.exception.ApplicationException.throwIf;
 
+/**
+ * OrderItem service implementation handling order item CRUD operations.
+ * Manages order item creation, updates, deletion, and retrieval with proper validation.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -33,9 +37,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     public OrderItemDto createOrderItem(OrderItemRequest orderItemRequest) {
         validateOrderItemRequest(orderItemRequest);
         Product product = productService.getProductEntityById(orderItemRequest.productId());
-
-        // Check if the requested quantity exceeds available stock
-
+        
         OrderItem orderItem = orderItemMapper.toEntity(orderItemRequest);
         orderItem.setProduct(product);
 
@@ -45,8 +47,8 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Override
     public OrderItemDto updateOrderItem(OrderItemRequest orderItemRequest, Long orderItemId) {
         return repository.findById(orderItemId).map((orderItem) -> {
-            orderItemMapper.updateEntityFromRequest(orderItemRequest, orderItem);
             validateOrderItemRequest(orderItemRequest);
+            orderItemMapper.updateEntityFromRequest(orderItemRequest, orderItem);
             orderItem.setId(orderItemId);
             Product product = productService.getProductEntityById(orderItemRequest.productId());
             orderItem.setProduct(product);

@@ -1,16 +1,17 @@
-package com.project.ecommarcemodernapp.dto;
+package com.project.ecommarcemodernapp.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * Order DTO for internal use and mapping.
+ * Order response DTO with all order details including items.
  */
-public record OrderDto(
+public record OrderResponse(
         Long id,
         String orderCode,
         Long userId,
-        List<OrderItemDto> items,
+        List<OrderItemResponse> items,
         LocalDateTime createdAt,
         LocalDateTime updatedAt) {
 }
+

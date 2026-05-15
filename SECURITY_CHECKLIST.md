@@ -80,13 +80,13 @@ AUTHENTICATED ENDPOINTS (Login Required):
 ✓ GET    /api/users/{id}
 ✓ PUT    /api/users/{id}
 ✓ DELETE /api/users/{id}
-✓ GET    /api/orders
-✓ POST   /api/orders
-✓ PUT    /api/orders/{id}
-✓ DELETE /api/orders/{id}
-✓ GET    /api/order-items/{id}
-✓ PUT    /api/order-items/{id}
-✓ DELETE /api/order-items/{id}
+✓ GET    /api/purchaseOrders
+✓ POST   /api/purchaseOrders
+✓ PUT    /api/purchaseOrders/{id}
+✓ DELETE /api/purchaseOrders/{id}
+✓ GET    /api/purchaseOrder-items/{id}
+✓ PUT    /api/purchaseOrder-items/{id}
+✓ DELETE /api/purchaseOrder-items/{id}
 
 ADMIN-ONLY ENDPOINTS:
 ✓ POST   /api/products
@@ -177,10 +177,10 @@ Response:
 
 ### Authenticated Request
 ```bash
-GET /api/orders
+GET /api/purchaseOrders
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 
-Response: List of orders for authenticated user
+Response: List of purchaseOrders for authenticated user
 ```
 
 ## Security Best Practices Applied

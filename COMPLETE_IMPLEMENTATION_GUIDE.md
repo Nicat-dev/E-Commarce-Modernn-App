@@ -213,25 +213,25 @@ public class ProductController {
 #### OrderController
 ```java
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/purchaseOrders")
 public class OrderController {
-    GET    /api/orders             - Get user's orders
-    POST   /api/orders             - Create order
-    GET    /api/orders/{id}        - Get order by ID
-    PUT    /api/orders/{id}        - Update order
-    DELETE /api/orders/{id}        - Delete order
+    GET    /api/purchaseOrders             - Get user's purchaseOrders
+    POST   /api/purchaseOrders             - Create purchaseOrder
+    GET    /api/purchaseOrders/{id}        - Get purchaseOrder by ID
+    PUT    /api/purchaseOrders/{id}        - Update purchaseOrder
+    DELETE /api/purchaseOrders/{id}        - Delete purchaseOrder
 }
 ```
 
 #### OrderItemController
 ```java
 @RestController
-@RequestMapping("/api/order-items")
+@RequestMapping("/api/purchaseOrder-items")
 public class OrderItemController {
-    POST   /api/order-items        - Create order item
-    GET    /api/order-items/{id}   - Get order item
-    PUT    /api/order-items/{id}   - Update order item
-    DELETE /api/order-items/{id}   - Delete order item
+    POST   /api/purchaseOrder-items        - Create purchaseOrder item
+    GET    /api/purchaseOrder-items/{id}   - Get purchaseOrder item
+    PUT    /api/purchaseOrder-items/{id}   - Update purchaseOrder item
+    DELETE /api/purchaseOrder-items/{id}   - Delete purchaseOrder item
 }
 ```
 
@@ -402,11 +402,11 @@ POST /api/auth/register
 → 400 Bad Request
 
 # Missing token
-GET /api/orders
+GET /api/purchaseOrders
 → 401 Unauthorized
 
 # Invalid token
-GET /api/orders
+GET /api/purchaseOrders
 Authorization: Bearer invalid_token
 → 401 Unauthorized
 ```

@@ -86,7 +86,7 @@ USER WANTS TO LOGIN
 ```
 FRONTEND MAKES AUTHENTICATED REQUEST
         │
-        ├─ GET /api/orders
+        ├─ GET /api/purchaseOrders
         ├─ Authorization: Bearer eyJhbGc...
         │
         ▼
@@ -401,7 +401,7 @@ Does request have Authorization header?
     │ - CSRF disable       │
     │ - Session: STATELESS │
     │ - Authorization      │
-    │ - Filter order       │
+    │ - Filter purchaseOrder       │
     └──────────────────────┘
     
     ┌──────────────────────┐
@@ -549,7 +549,7 @@ CLIENT SIDE                    SERVER SIDE
    Store token in localStorage
 
 4. Authenticated API call
-   GET /api/orders ───────────────────────▶ JwtAuthenticationFilter
+   GET /api/purchaseOrders ───────────────────────▶ JwtAuthenticationFilter
    Authorization: Bearer <token>           │
                                           ▼
                                       Extract & validate token
@@ -572,7 +572,7 @@ CLIENT SIDE                    SERVER SIDE
                                           ▼
    ◄────────────────────────── Response
    {                             [
-     List of orders                {id, orderCode, userId, ...},
+     List of purchaseOrders                {id, orderCode, userId, ...},
    }                               {id, orderCode, userId, ...}
                                 ]
 ```

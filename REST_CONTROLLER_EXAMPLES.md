@@ -142,7 +142,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orders")
+@RequestMapping("/api/purchaseOrders")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class OrderController {
@@ -198,7 +198,7 @@ import org.springframework.security.access.preauthorize.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/order-items")
+@RequestMapping("/api/purchaseOrder-items")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*", maxAge = 3600)
 public class OrderItemController {

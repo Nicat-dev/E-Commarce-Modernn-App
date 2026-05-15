@@ -22,6 +22,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+/**
+ * Authentication service implementation handling user login and registration.
+ * Manages JWT token generation and user registration with proper error handling.
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -36,6 +40,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserService userService;
     private final UserRepository userRepository;
 
+    /**
+     * Authenticates user with username and password, returns JWT token.
+     *
+     * @param loginRequest Login credentials
+     * @return LoginResponse with JWT token
+     * @throws ApplicationException if credentials are invalid
+     */
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
         try {
@@ -54,6 +65,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
+    /**
+     * Registers a new user with provided credentials.
+     *
+     * @param userRequest User registration details
+     * @return MessageResponse indicating successful registration
+     * @throws ApplicationException if registration fails
+     */
     @Override
     public MessageResponse register(UserRequest userRequest) {
         return Optional.of(userRequest)
@@ -68,6 +86,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 });
     }
 
+    /**
+     * Authenticates user credentials using AuthenticationManager.
+     *
+     * @param loginRequest Login credentials
+     * @return Optional containing JWT token if authentication succeeds
+     */
     private Optional<String> authenticateUser(LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -82,6 +106,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
+    /**
+     * Builds login response with user details and JWT token.
+     *
+     * @param token JWT token
+     * @param username Username of authenticated user
+     * @return LoginResponse with user details
+     */
     private LoginResponse buildLoginResponse(String token, String username) {
         return userRepository.findByUsername(username)
                 .map(user -> {
@@ -97,4 +128,3 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow(() -> new ApplicationException(ExceptionStatus.USER_NOT_FOUND));
     }
 }
-

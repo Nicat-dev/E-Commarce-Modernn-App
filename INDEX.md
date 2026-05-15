@@ -277,7 +277,7 @@ src/main/java/com/project/ecommarcemodernapp/
 **Time: ~3-4 hours**
 
 ### Path 3: Advanced (Want to Master It)
-1. All documentation files in order
+1. All documentation files in purchaseOrder
 2. Review source code
 3. Study each component
 4. Implement enhancements
