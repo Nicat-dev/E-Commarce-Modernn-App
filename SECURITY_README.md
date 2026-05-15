@@ -195,7 +195,7 @@ Content-Type: application/json
 
 ### 3. Use token in subsequent requests:
 ```bash
-GET /api/orders
+GET /api/purchaseOrders
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 

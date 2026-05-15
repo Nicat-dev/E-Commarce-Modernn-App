@@ -153,15 +153,15 @@ GET    /api/products
 
 ### Protected Endpoints (Token Required)
 ```
-GET    /api/orders
-POST   /api/orders
-GET    /api/orders/{id}
-PUT    /api/orders/{id}
-DELETE /api/orders/{id}
+GET    /api/purchaseOrders
+POST   /api/purchaseOrders
+GET    /api/purchaseOrders/{id}
+PUT    /api/purchaseOrders/{id}
+DELETE /api/purchaseOrders/{id}
 
-GET    /api/order-items/{id}
-PUT    /api/order-items/{id}
-DELETE /api/order-items/{id}
+GET    /api/purchaseOrder-items/{id}
+PUT    /api/purchaseOrder-items/{id}
+DELETE /api/purchaseOrder-items/{id}
 
 GET    /api/users/{id}
 PUT    /api/users/{id}
@@ -219,18 +219,18 @@ curl -X POST http://localhost:8080/api/auth/login \
 ### 3️⃣ Use Token in Requests
 ```bash
 # Header format: Authorization: Bearer <token>
-curl -X GET http://localhost:8080/api/orders \
+curl -X GET http://localhost:8080/api/purchaseOrders \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9..."
 
 # JavaScript example:
-fetch('/api/orders', {
+fetch('/api/purchaseOrders', {
   headers: {
     'Authorization': `Bearer ${token}`
   }
 })
 
 # Axios example:
-axios.get('/api/orders', {
+axios.get('/api/purchaseOrders', {
   headers: {
     'Authorization': `Bearer ${token}`
   }

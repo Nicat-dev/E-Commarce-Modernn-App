@@ -16,6 +16,10 @@ import java.util.function.Predicate;
 
 import static com.project.ecommarcemodernapp.exception.ApplicationException.throwIf;
 
+/**
+ * Product service implementation handling product CRUD operations.
+ * Manages product creation, updates, deletion, and retrieval with proper validation.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -36,13 +40,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto updateProduct(ProductRequest productRequest, Long productId) {
         Product existingProduct = getProductEntity(productId);
-
         validateProductRequest(productRequest);
 
-        existingProduct.setName(productRequest.name());
-        existingProduct.setDescription(productRequest.description());
-        existingProduct.setPrice(productRequest.price());
-
+        productMapper.updateEntityFromRequest(productRequest, existingProduct);
         return productMapper.toDto(productRepository.save(existingProduct));
     }
 

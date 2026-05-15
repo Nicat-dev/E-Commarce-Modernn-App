@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -24,6 +25,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Spring Security configuration for JWT-based authentication.
+ * Configures stateless session management, CORS, CSRF protection, and JWT filter.
+ */
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
@@ -32,7 +37,11 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtProvider jwtProvider;
-    private final ObjectMapper objectMapper;
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -72,12 +81,26 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint((request, response, authException) -> {
                             response.setStatus(401);
-                            response.setContentType("application/json");
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
                             response.getWriter().write(
-                                objectMapper.writeValueAsString(
+                                objectMapper().writeValueAsString(
                                     Map.of(
                                         "error", "Unauthorized",
-                                        "message", authException.getMessage()
+                                        "message", authException.getMessage(),
+                                        "timestamp", System.currentTimeMillis()
+                                    )
+                                )
+                            );
+                        })
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(403);
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                            response.getWriter().write(
+                                objectMapper().writeValueAsString(
+                                    Map.of(
+                                        "error", "Forbidden",
+                                        "message", "Access denied",
+                                        "timestamp", System.currentTimeMillis()
                                     )
                                 )
                             );

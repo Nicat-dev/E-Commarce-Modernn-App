@@ -50,7 +50,7 @@ POST /api/auth/login
 }
 
 # Use the new token in requests
-curl -X GET http://localhost:8080/api/orders \
+curl -X GET http://localhost:8080/api/purchaseOrders \
   -H "Authorization: Bearer <NEW_TOKEN>"
 
 # Check token expiration time
@@ -73,14 +73,14 @@ curl -X GET http://localhost:8080/api/orders \
 # Format: Authorization: Bearer <token>
 
 # Correct:
-curl -X GET http://localhost:8080/api/orders \
+curl -X GET http://localhost:8080/api/purchaseOrders \
   -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9..."
 
 # Incorrect:
-curl -X GET http://localhost:8080/api/orders \
+curl -X GET http://localhost:8080/api/purchaseOrders \
   -H "Authorization: eyJhbGciOiJIUzUxMiJ9..."  # Missing "Bearer"
 
-curl -X GET http://localhost:8080/api/orders \
+curl -X GET http://localhost:8080/api/purchaseOrders \
   -H "Token: eyJhbGciOiJIUzUxMiJ9..."  # Wrong header name
 ```
 
@@ -450,7 +450,7 @@ TOKEN=$(curl -s -X POST http://localhost:8080/api/auth/login \
   -d '{"username":"johndoe","password":"password123"}' | jq -r '.token')
 
 # Use token
-curl -X GET http://localhost:8080/api/orders \
+curl -X GET http://localhost:8080/api/purchaseOrders \
   -H "Authorization: Bearer $TOKEN" \
   -v
 ```
@@ -463,11 +463,11 @@ psql -U postgres -d ecommerce_db
 -- Check users
 SELECT id, username, email, is_active, created_at FROM users;
 
--- Check orders
-SELECT id, order_code, user_id, created_at FROM orders;
+-- Check purchaseOrders
+SELECT id, order_code, user_id, created_at FROM purchaseOrders;
 
--- Check if user has orders
-SELECT * FROM orders WHERE user_id = 1;
+-- Check if user has purchaseOrders
+SELECT * FROM purchaseOrders WHERE user_id = 1;
 ```
 
 ---

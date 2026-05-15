@@ -2,6 +2,7 @@ package com.project.ecommarcemodernapp.service.impl;
 
 import com.project.ecommarcemodernapp.dto.UserDto;
 import com.project.ecommarcemodernapp.dto.request.UserRequest;
+import com.project.ecommarcemodernapp.dto.request.UserUpdateRequest;
 import com.project.ecommarcemodernapp.exception.ApplicationException;
 import com.project.ecommarcemodernapp.exception.enums.ExceptionStatus;
 import com.project.ecommarcemodernapp.mapper.UserMapper;
@@ -15,6 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static com.project.ecommarcemodernapp.exception.ApplicationException.throwIf;
 
+/**
+ * User service implementation handling user CRUD operations.
+ * Manages user creation, updates, deletion, and retrieval with proper validation.
+ */
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -36,7 +41,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserRequest userRequest, Long id) {
         Users existingUser = getUser(id);
-
         validateUserRequestForUpdate(userRequest, id);
 
         existingUser.setName(userRequest.name());
@@ -77,13 +81,13 @@ public class UserServiceImpl implements UserService {
     private void validateUserRequestForUpdate(UserRequest userRequest, Long userId) {
         userRepository.findByEmailAndIdNot(userRequest.email(), userId).ifPresent(
                 _ -> {
-                throw new ApplicationException(ExceptionStatus.EMAIL_ALREADY_EXISTS);
-            }
+                    throw new ApplicationException(ExceptionStatus.EMAIL_ALREADY_EXISTS);
+                }
         );
         userRepository.findByUsernameAndIdNot(userRequest.username(), userId).ifPresent(
                 _ -> {
-                throw new ApplicationException(ExceptionStatus.USERNAME_ALREADY_EXISTS);
-            }
+                    throw new ApplicationException(ExceptionStatus.USERNAME_ALREADY_EXISTS);
+                }
         );
     }
 }

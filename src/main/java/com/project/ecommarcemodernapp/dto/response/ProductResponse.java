@@ -1,11 +1,11 @@
-package com.project.ecommarcemodernapp.dto;
+package com.project.ecommarcemodernapp.dto.response;
 
 import java.time.LocalDateTime;
 
 /**
- * Product DTO for internal use and mapping.
+ * Product response DTO for API responses.
  */
-public record ProductDto(
+public record ProductResponse(
         Long id,
         String name,
         String description,
@@ -13,3 +13,4 @@ public record ProductDto(
         LocalDateTime createdAt,
         LocalDateTime updatedAt) {
 }
+

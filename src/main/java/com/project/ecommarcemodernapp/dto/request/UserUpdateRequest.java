@@ -2,14 +2,13 @@ package com.project.ecommarcemodernapp.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 /**
- * User registration/update request DTO.
- * Password is included here for registration only.
- * For password changes, use a dedicated endpoint.
+ * User update request DTO (without password).
+ * This is used for updating user profile information.
+ * Password changes should use a dedicated endpoint.
  */
-public record UserRequest(
+public record UserUpdateRequest(
         @NotBlank(message = "{user.name.notblank}")
         String name,
 
@@ -20,12 +19,6 @@ public record UserRequest(
         @Email(message = "{user.email.invalid}")
         String email,
 
-        @NotBlank(message = "{user.username.notblank}")
-        String username,
-
-        @NotBlank(message = "{user.password.notblank}")
-        @Size(min = 6, message = "{user.password.size}")
-        String password,
-
         boolean isActive) {
 }
+

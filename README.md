@@ -14,4 +14,4 @@ It includes authentication and authorization via **Spring Security** and support
 ### Goals
 - Apply real-world backend best practices (validation, exception handling, logging, layering)
 - Build secure authentication/authorization workflows
-- Implement transactional order flows and email notifications
+- Implement transactional purchaseOrder flows and email notifications
